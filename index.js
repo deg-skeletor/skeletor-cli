@@ -48,8 +48,8 @@ function getTasks() {
 
 function getSubtasks() {
 	return {
-		only: args.only ? args.only.split(',') : [],
-		except: args.except ? args.except.split(',') : [],
+		only: args.only && args.only.length > 0 ? args.only.split(',') : [],
+		except: args.except && args.only.length > 0 ? args.except.split(',') : [],
 		debug: args.debug
 	}
 }
