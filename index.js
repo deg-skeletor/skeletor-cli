@@ -2,6 +2,7 @@
 'use strict';
 
 const minimist = require('minimist');
+const pkg = require('./package.json');
 
 const defaultKeyword = 'default';
 const quotesKeyword = 'etor';
@@ -11,7 +12,8 @@ const errors = {
 };
 const minimistConfig = {
 	boolean: [
-		'debug'
+		'debug',
+		'version'
 	]
 };
 const args = getArgs();
@@ -19,16 +21,20 @@ const tasks = getTasks();
 const subtasks = getSubtasks();
 
 function init() {
-	if (tasks.length > 1) {
-		console.log(errors.tooManyTasks);
-		return;
-	} else if (subtasks.only.length > 0 && subtasks.except.length > 0) {
-		console.log(errors.tooManySubtasks);
-		return;
+	if (args.version) {
+		console.log(pkg.version);
 	} else {
-		run(tasks[0], subtasks);
-		if (args.etor) {
-			console.log(getQuote());
+		if (tasks.length > 1) {
+			console.log(errors.tooManyTasks);
+			return;
+		} else if (subtasks.only.length > 0 && subtasks.except.length > 0) {
+			console.log(errors.tooManySubtasks);
+			return;
+		} else {
+			run(tasks[0], subtasks);
+			if (args.etor) {
+				console.log(getQuote());
+			}
 		}
 	}
 }
