@@ -1,0 +1,10 @@
+node_modules
+
+*.orig
+*.patch
+
+Thumbs.db
+.DS_Store
+~$*
+
+*.sublime-project
