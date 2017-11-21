@@ -3,9 +3,8 @@
 
 const minimist = require('minimist');
 
-const quotesKeyword = 'etor';
 const defaultKeyword = 'default';
-const allKeyword = 'all';
+const quotesKeyword = 'etor';
 const errors = {
 	tooManyTasks: 'One task at a time, please.',
 	tooManySubtasks: 'You set "only" and "except" flags. Make up your damn mind.'
@@ -65,7 +64,7 @@ function getQuote() {
 		`I am not nice, I am not kind, and I am not wonderful!`,
 		`I ache to smash you out of existence! To drive your cursed face from my memories forever!`,
 		`I must possess all, or I possess nothing!`,
-		`How I loathe heroes. Always gettng in the way and acting so...so...heroic!`,
+		`How I loathe heroes. Always getting in the way and acting so...so...heroic!`,
 		`You furry, flea bitten fool. I'll cover my throne with your hide!`,
 		`Books are the real treasures of the world!`,
 		`This is how it ends! With Skeletor triumphant at last!`,
