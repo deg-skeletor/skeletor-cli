@@ -20,10 +20,10 @@ const skeletorCli = () => {
 	if (hasInvalidConfig()) {
 		return logError(errors.noConfig);
 	}
-	if (hasInvalidTasks()) {
+	if (hasInvalidTaskArgs()) {
 		return logToConsole(errors.tooManyTasks);
 	}
-	if (hasInvalidSubtasks()) {
+	if (hasInvalidSubtaskArgs()) {
 
 	}
 
@@ -52,12 +52,11 @@ const skeletorCli = () => {
 		return !config || !config.tasks || config.tasks.length === 0;
 	}
 
-	function hasInvalidTasks() {
-		console.log(args);
-		return args._.length >= 1;
+	function hasInvalidTaskArgs() {
+		return args._.length > 1;
 	}
 
-	function hasInvalidSubtasks() {
+	function hasInvalidSubtaskArgs() {
 		const subtasks = getSubtasks();
 		console.log(subtasks);
 		subtasks.only.length > 0 && subtasks.except.length > 0
