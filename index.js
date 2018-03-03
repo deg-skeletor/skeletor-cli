@@ -53,6 +53,7 @@ const skeletorCli = () => {
 	}
 
 	function hasInvalidTasks() {
+		console.log(args);
 		return args._.length <= 1;
 	}
 
