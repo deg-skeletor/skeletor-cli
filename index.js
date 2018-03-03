@@ -14,27 +14,23 @@ const errors = {
 
 const skeletorCli = () => {
 	
-	if (!config) {
+	if (isVersionCheck()) {
+		return console.log(pkg.version);
+	}
+	if (isInvalidConfig()) {
 		return logError(errors.noConfig);
 	}
 
 	const tasks = getTasks();
 	const subtasks = getSubtasks();
-	// console.log(config);
-	// console.log(args);
-
-	if (tasks.includes('version') || args.v && args.v === true) {
-		console.log(pkg.version);
+	if (tasks.length > 1) {
+		logError(errors.tooManyTasks);
+		return;
+	} else if (subtasks.only.length > 0 && subtasks.except.length > 0) {
+		logError(errors.tooManySubtasks);
+		return;
 	} else {
-		if (tasks.length > 1) {
-			logError(errors.tooManyTasks);
-			return;
-		} else if (subtasks.only.length > 0 && subtasks.except.length > 0) {
-			logError(errors.tooManySubtasks);
-			return;
-		} else {
-			skelCore.runTask(tasks[0], subtasks);
-		}
+		skelCore.runTask(tasks[0], subtasks);
 	}
 
 	function getTasks() {
@@ -47,6 +43,14 @@ const skeletorCli = () => {
 			except: args.except && args.only.length > 0 ? args.except.split(',') : [],
 			debug: args.debug
 		}
+	}
+
+	function isVersionCheck() {
+		return args._.includes('version') || args.v && args.v === true
+	}
+
+	function isInvalidConfig() {
+		return !config || !config.tasks || config.tasks.length === 0;
 	}
 
 	function logError(msg) {
