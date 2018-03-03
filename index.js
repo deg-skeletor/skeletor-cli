@@ -15,8 +15,9 @@ const errors = {
 const skeletorCli = () => {
 	
 	if (!config) {
-		logError(errors.noConfig);
+		return logError(errors.noConfig);
 	}
+	
 	const tasks = getTasks();
 	const subtasks = getSubtasks();
 	console.log(config);
