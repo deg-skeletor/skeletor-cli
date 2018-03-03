@@ -54,7 +54,7 @@ const skeletorCli = () => {
 	}
 
 	function logToConsole(msg, prefix = errors.prefix, method = 'log') {
-		console[method(`${prefix}${msg}`)
+		console[method](`${prefix}${msg}`)
 	}
 
 };
