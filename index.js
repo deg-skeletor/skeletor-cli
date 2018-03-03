@@ -51,12 +51,10 @@ const skeletorCli = () => {
 
 	function hasTooManySubtaskArgs() {
 		const subtasks = getSubtasks();
-		console.log(subtasks);
-		subtasks.only.length > 0 && subtasks.except.length > 0
+		return subtasks.only.length > 0 && subtasks.except.length > 0
 	}
 
 	function getSubtasks() {
-		console.log(args);
 		return {
 			only: args.only && args.only.length > 0 ? args.only.split(',') : [],
 			except: args.except && args.only.length > 0 ? args.except.split(',') : []
