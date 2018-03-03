@@ -14,56 +14,51 @@ const errors = {
 
 const skeletorCli = () => {
 	
-	if (isVersionCheck()) {
-		return logToConsole(pkg.version, '');
-	}
-	if (hasInvalidConfig()) {
-		return logError(errors.noConfig);
-	}
-	if (hasTooManyTaskArgs()) {
-		return logToConsole(errors.tooManyTasks);
-	}
-	if (hasTooManySubtaskArgs()) {
-		return logToConsole(errors.tooManySubtasks);
+	const init = () => {
+		if (isVersionCheck()) {
+			return logToConsole(pkg.version, '');
+		}
+		if (hasInvalidConfig()) {
+			return logError(errors.noConfig);
+		}
+		if (hasTooManyTaskArgs()) {
+			return logToConsole(errors.tooManyTasks);
+		}
+		if (hasTooManySubtaskArgs()) {
+			return logToConsole(errors.tooManySubtasks);
+		}
+		skelCore.runTask(tasks[0], subtasks);
 	}
 
-	// if (tasks.length > 1) {
-	// 	logToConsole(errors.tooManyTasks);
-	// 	return;
-	// } else if (subtasks.only.length > 0 && subtasks.except.length > 0) {
-	// 	logToConsole(errors.tooManySubtasks);
-	// 	return;
-	// } else {
-	// 	skelCore.runTask(tasks[0], subtasks);
-	// }
-
-	function isVersionCheck() {
+	const isVersionCheck = () => {
 		return args._.includes('version') || args.v;
 	}
 
-	function hasInvalidConfig() {
+	const hasInvalidConfig = () => {
 		return !config || !config.tasks || config.tasks.length === 0;
 	}
 
-	function hasTooManyTaskArgs() {
+	const hasTooManyTaskArgs = () => {
 		return args._.length > 1;
 	}
 
-	function hasTooManySubtaskArgs() {
+	const hasTooManySubtaskArgs = () => {
 		const subtasks = getSubtasks();
 		return subtasks.only.length > 0 && subtasks.except.length > 0
 	}
 
-	function getSubtasks() {
+	const getSubtasks = () => {
 		return {
 			only: args.only && args.only.length > 0 ? args.only.split(',') : [],
 			except: args.except && args.only.length > 0 ? args.except.split(',') : []
 		};
 	}
 
-	function logToConsole(msg, prefix = errors.prefix, method = 'log') {
+	const logToConsole = (msg, prefix = errors.prefix, method = 'log') => {
 		console[method](`${prefix}${msg}`)
 	}
+
+	init();
 
 };
 
