@@ -1,19 +1,20 @@
 #!/usr/bin/env node
 
 const pkg = require('./package.json');
-const minimist = require('minimist');
-const skeletor = require('skeletor-core');
+var argv = require('minimist')(process.argv.slice(2));
+console.dir(argv);
+const skelCore = require('skeletor-core')();
 // const skeletorWizard = require('skeletor-wizard');
 
 const skeletorCli = () => {
 
-	const skelCore = skeletor();
 	const config = skelCore.getConfig();
 	const defaultKeyword = 'default';
 	const errors = {
 		tooManyTasks: 'One task at a time, please.',
 		tooManySubtasks: 'You set "only" and "except" flags. Make up your damn mind.'
 	};
+
 	const minimistConfig = {
 		boolean: [
 			'debug',
