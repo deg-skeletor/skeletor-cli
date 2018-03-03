@@ -15,7 +15,7 @@ const errors = {
 const skeletorCli = () => {
 	
 	if (isVersionCheck()) {
-		return console.log(pkg.version);
+		return logToConsole(pkg.version, '');
 	}
 	if (isInvalidConfig()) {
 		return logError(errors.noConfig);
@@ -24,10 +24,10 @@ const skeletorCli = () => {
 	const tasks = getTasks();
 	const subtasks = getSubtasks();
 	if (tasks.length > 1) {
-		logError(errors.tooManyTasks);
+		logToConsole(errors.tooManyTasks);
 		return;
 	} else if (subtasks.only.length > 0 && subtasks.except.length > 0) {
-		logError(errors.tooManySubtasks);
+		logToConsole(errors.tooManySubtasks);
 		return;
 	} else {
 		skelCore.runTask(tasks[0], subtasks);
@@ -53,8 +53,8 @@ const skeletorCli = () => {
 		return !config || !config.tasks || config.tasks.length === 0;
 	}
 
-	function logError(msg) {
-		console.log(`${errors.prefix}${msg}`)
+	function logToConsole(msg, prefix = errors.prefix, method = 'log') {
+		console[method(`${prefix}${msg}`)
 	}
 
 };
