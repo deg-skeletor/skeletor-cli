@@ -5,6 +5,7 @@ const args = require('minimist')(process.argv.slice(2));
 const skelCore = require('skeletor-core')();
 const config = skelCore.getConfig();
 const errors = {
+	prefix: 'ERROR: ',
 	noConfig: 'No configuration specified',
 	tooManyTasks: 'One task at a time, please.',
 	tooManySubtasks: 'You set "only" and "except" flags. Make up your damn mind.'
@@ -14,7 +15,7 @@ const errors = {
 const skeletorCli = () => {
 	
 	if (!config) {
-		console.log(errors.noConfig);
+		logError(errors.noConfig);
 	}
 	const tasks = getTasks();
 	const subtasks = getSubtasks();
@@ -25,10 +26,10 @@ const skeletorCli = () => {
 		console.log(pkg.version);
 	} else {
 		if (tasks.length > 1) {
-			console.log(errors.tooManyTasks);
+			logError(errors.tooManyTasks);
 			return;
 		} else if (subtasks.only.length > 0 && subtasks.except.length > 0) {
-			console.log(errors.tooManySubtasks);
+			logError(errors.tooManySubtasks);
 			return;
 		} else {
 			skelCore.runTask(tasks[0], subtasks);
@@ -45,6 +46,10 @@ const skeletorCli = () => {
 			except: args.except && args.only.length > 0 ? args.except.split(',') : [],
 			debug: args.debug
 		}
+	}
+
+	function logError(msg) {
+		console.log(`${errors.prefix}${msg}`)
 	}
 
 };
