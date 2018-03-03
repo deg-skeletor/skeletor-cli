@@ -22,7 +22,7 @@ const skeletorCli = () => {
 	const args = getArgs();
 	const tasks = getTasks();
 	const subtasks = getSubtasks();
-	console.log(core.getConfig());
+	console.log(skelCore.getConfig());
 
 	if (args.version) {
 		console.log(pkg.version);
