@@ -10,11 +10,13 @@
         "CLI"
     ],
     "bin": {
-        "skel": "./index.js"
+        "skel": "index.js"
     },
     "author": "Aaron Ladage",
     "license": "MIT",
     "dependencies": {
-        "minimist": "^1.2.0"
+        "minimist": "^1.2.0",
+        "skeletor-core": "git+https://github.com/deg-skeletor/skeletor-core.git",
+        "skeletor-wizard": "deg-skeletor/skeletor-wizard"
     }
 }
