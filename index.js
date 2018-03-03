@@ -1,12 +1,10 @@
-#!/usr/bin/env node
-
 const skeletor = require('skeletor-core');
 
 const skeletorCli = () => {
 
-	const skelCoreInst = skeletor();
+	const skelCore = skeletor();
 
-	console.log(skelCoreInst.getConfig());
+	console.log(skelCore.getConfig());
 
 	console.log('skeletorCli');
 
