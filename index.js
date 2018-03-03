@@ -4,7 +4,7 @@ const skelCore = require('skeletor-core');
 
 const skeletorCli = () => {
 
-	// console.log(skelCore());
+	console.log(skelCore.getConfig());
 
 	console.log('skeletorCli');
 
