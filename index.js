@@ -56,6 +56,7 @@ const skeletorCli = () => {
 	}
 
 	function getSubtasks() {
+		console.log(args);
 		return {
 			only: args._.only && args._.only.length > 0 ? args._.only.split(',') : [],
 			except: args._.except && args._.only.length > 0 ? args._.except.split(',') : []
