@@ -30,12 +30,8 @@ const skeletorCli = () => {
 		}
 	}
 
-	function runTasks() {
-
-	}
-
 	function getTasks() {
-		return args._.length === 0 ? [defaultKeyword] : args._;
+		return args._;
 	}
 
 	function getSubtasks() {
