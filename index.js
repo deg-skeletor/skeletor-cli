@@ -21,7 +21,7 @@ const skeletorCli = () => {
 		return logError(errors.noConfig);
 	}
 	if (hasInvalidTasks()) {
-		logToConsole(errors.tooManyTasks);
+		return logToConsole(errors.tooManyTasks);
 	}
 	if (hasInvalidSubtasks()) {
 
