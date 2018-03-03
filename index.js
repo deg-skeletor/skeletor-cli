@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const skeletor = require('skeletor-core');
 
 const skeletorCli = () => {
