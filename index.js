@@ -20,10 +20,10 @@ const skeletorCli = () => {
 	if (hasInvalidConfig()) {
 		return logError(errors.noConfig);
 	}
-	if (hasInvalidTaskArgs()) {
+	if (hasTooManyTaskArgs()) {
 		return logToConsole(errors.tooManyTasks);
 	}
-	if (hasInvalidSubtaskArgs()) {
+	if (hasTooManySubtaskArgs()) {
 		return logToConsole(errors.tooManySubtasks);
 	}
 
@@ -37,29 +37,30 @@ const skeletorCli = () => {
 	// 	skelCore.runTask(tasks[0], subtasks);
 	// }
 
-	function getSubtasks() {
-		return {
-			only: args._.only && args._.only.length > 0 ? args._.only.split(',') : [],
-			except: args._.except && args._.only.length > 0 ? args._.except.split(',') : []
-		}
-	}
-
 	function isVersionCheck() {
-		return args._.includes('version') || args.v && args.v === true
+		return args._.includes('version') || args.v;
 	}
 
 	function hasInvalidConfig() {
 		return !config || !config.tasks || config.tasks.length === 0;
 	}
 
-	function hasInvalidTaskArgs() {
+	function hasTooManyTaskArgs() {
 		return args._.length > 1;
 	}
 
-	function hasInvalidSubtaskArgs() {
+	function hasTooManySubtaskArgs() {
 		const subtasks = getSubtasks();
 		console.log(subtasks);
 		subtasks.only.length > 0 && subtasks.except.length > 0
+	}
+
+	function getSubtasks() {
+		console.log(args);
+		return {
+			only: args._.only && args._.only.length > 0 ? args._.only.split(',') : [],
+			except: args._.except && args._.only.length > 0 ? args._.except.split(',') : []
+		};
 	}
 
 	function logToConsole(msg, prefix = errors.prefix, method = 'log') {
