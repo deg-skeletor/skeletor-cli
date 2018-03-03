@@ -24,18 +24,18 @@ const skeletorCli = () => {
 		return logToConsole(errors.tooManyTasks);
 	}
 	if (hasInvalidSubtaskArgs()) {
-
+		return logToConsole(errors.tooManySubtasks);
 	}
 
-	if (tasks.length > 1) {
-		logToConsole(errors.tooManyTasks);
-		return;
-	} else if (subtasks.only.length > 0 && subtasks.except.length > 0) {
-		logToConsole(errors.tooManySubtasks);
-		return;
-	} else {
-		skelCore.runTask(tasks[0], subtasks);
-	}
+	// if (tasks.length > 1) {
+	// 	logToConsole(errors.tooManyTasks);
+	// 	return;
+	// } else if (subtasks.only.length > 0 && subtasks.except.length > 0) {
+	// 	logToConsole(errors.tooManySubtasks);
+	// 	return;
+	// } else {
+	// 	skelCore.runTask(tasks[0], subtasks);
+	// }
 
 	function getSubtasks() {
 		return {
