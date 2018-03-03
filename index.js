@@ -1,11 +1,12 @@
 #!/usr/bin/env node
 
+const pkg = require('./package.json');
+const minimist = require('minimist');
+const skeletor = require('skeletor-core');
+// const skeletorWizard = require('skeletor-wizard');
+
 const skeletorCli = () => {
 
-	const pkg = require('./package.json');
-	const minimist = require('minimist');
-	const skeletor = require('skeletor-core');
-	// const skeletorWizard = require('skeletor-wizard');
 	const skelCore = skeletor();
 	const config = skelCore.getConfig();
 	const defaultKeyword = 'default';
