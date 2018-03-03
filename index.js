@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 
-const pkg = require('./package.json');
-const minimist = require('minimist');
-const skeletor = require('skeletor-core');
-// const skeletorWizard = require('skeletor-wizard');
-
 const skeletorCli = () => {
 
+	const pkg = require('./package.json');
+	const minimist = require('minimist');
+	const skeletor = require('skeletor-core');
+	// const skeletorWizard = require('skeletor-wizard');
 	const skelCore = skeletor();
+	const config = skelCore.getConfig();
 	const defaultKeyword = 'default';
 	const errors = {
 		tooManyTasks: 'One task at a time, please.',
@@ -22,7 +22,7 @@ const skeletorCli = () => {
 	const args = getArgs();
 	const tasks = getTasks();
 	const subtasks = getSubtasks();
-	console.log(skelCore.getConfig());
+	console.log(config);
 
 	if (args.version) {
 		console.log(pkg.version);
@@ -36,6 +36,10 @@ const skeletorCli = () => {
 		} else {
 			skelCore.runTask(tasks[0], subtasks);
 		}
+	}
+
+	function runTasks() {
+
 	}
 
 	function getArgs() {
