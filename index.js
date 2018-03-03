@@ -20,10 +20,10 @@ const skeletorCli = () => {
 
 	const tasks = getTasks();
 	const subtasks = getSubtasks();
-	console.log(config);
-	console.log(args);
+	// console.log(config);
+	// console.log(args);
 
-	if (tasks.version || args.v && args.v === true) {
+	if (tasks.includes('version') || args.v && args.v === true) {
 		console.log(pkg.version);
 	} else {
 		if (tasks.length > 1) {
