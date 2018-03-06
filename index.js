@@ -8,7 +8,7 @@ const errors = {
 	prefix: 'ERROR: ',
 	noConfig: 'No configuration specified',
 	tooManyTasks: 'One task at a time, please.',
-	tooManySubtasks: 'You set "only" and "except" flags. Make up your damn mind.'
+	tooManySubtasks: 'You set "only" and "except" flags. Make up your damn mind.',
 	taskNotFound: 'The task you entered does not exist in the config file.'
 };
 // const skelWizard = require('skeletor-wizard');
