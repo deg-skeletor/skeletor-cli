@@ -2,7 +2,6 @@
 
 const pkg = require('./package.json');
 const args = require('minimist')(process.argv.slice(2));
-const subtaskArgs = getSubtaskArgs();
 const skelCore = require('skeletor-core')();
 const config = skelCore.getConfig();
 const errors = {
@@ -15,6 +14,8 @@ const errors = {
 // const skelWizard = require('skeletor-wizard');
 
 const skeletorCli = () => {
+
+	const subtaskArgs = getSubtaskArgs();
 
 	const init = () => {
 		if (isVersionCheck()) {
