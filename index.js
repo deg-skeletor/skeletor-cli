@@ -13,7 +13,7 @@ const errors = {
 // const skelWizard = require('skeletor-wizard');
 
 const skeletorCli = () => {
-	
+
 	const init = () => {
 		if (isVersionCheck()) {
 			return logToConsole(pkg.version, '');
@@ -27,7 +27,8 @@ const skeletorCli = () => {
 		if (hasTooManySubtaskArgs()) {
 			return logToConsole(errors.tooManySubtasks);
 		}
-		skelCore.runTask(tasks[0], subtasks);
+		console.log(args);
+		const filteredTasks = filterTasks();
 	}
 
 	const isVersionCheck = () => {
@@ -45,6 +46,10 @@ const skeletorCli = () => {
 	const hasTooManySubtaskArgs = () => {
 		const subtasks = getSubtasks();
 		return subtasks.only.length > 0 && subtasks.except.length > 0
+	}
+
+	const filterTasks = () => {
+		return config.tasks.filter(task => task.name === '');
 	}
 
 	const getSubtasks = () => {
