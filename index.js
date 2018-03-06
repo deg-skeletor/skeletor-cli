@@ -2,6 +2,7 @@
 
 const pkg = require('./package.json');
 const args = require('minimist')(process.argv.slice(2));
+const subtaskArgs = getSubtaskArgs();
 const skelCore = require('skeletor-core')();
 const config = skelCore.getConfig();
 const errors = {
@@ -28,9 +29,9 @@ const skeletorCli = () => {
 		if (hasTooManySubtaskArgs()) {
 			return logToConsole(errors.tooManySubtasks);
 		}
-		console.log(args);
 		const filteredTasks = filterTasks();
 		if (filteredTasks) {
+			runTasks(filteredTasks);
 			console.log(filteredTasks);
 		} else {
 			logToConsole(errors.taskNotFound);
@@ -50,8 +51,16 @@ const skeletorCli = () => {
 	}
 
 	const hasTooManySubtaskArgs = () => {
-		const subtasks = getSubtasks();
-		return subtasks.only.length > 0 && subtasks.except.length > 0
+		return subtaskArgs.only.length > 0 && subtaskArgs.except.length > 0
+	}
+
+	const runTasks = (filteredTasks) => {
+		console.log(subtaskArgs);
+		filteredTasks.forEach(task => {
+			skelCore.runTask(task, {
+				subTasksToInclude: ''
+			});
+		});
 	}
 
 	const filterTasks = () => {
@@ -63,7 +72,7 @@ const skeletorCli = () => {
 		}
 	}
 
-	const getSubtasks = () => {
+	const getSubtaskArgs = () => {
 		return {
 			only: args.only && args.only.length > 0 ? args.only.split(',') : [],
 			except: args.except && args.only.length > 0 ? args.except.split(',') : []
