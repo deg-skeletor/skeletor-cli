@@ -29,6 +29,7 @@ const skeletorCli = () => {
 		}
 		console.log(args);
 		const filteredTasks = filterTasks();
+		console.log(filteredTasks);
 	}
 
 	const isVersionCheck = () => {
@@ -49,7 +50,11 @@ const skeletorCli = () => {
 	}
 
 	const filterTasks = () => {
-		return config.tasks.filter(task => task.name === '');
+		if (args._.length > 0) {
+			return config.tasks.filter(task => task.name === args._[0]);
+		} else {
+			return args._;
+		}
 	}
 
 	const getSubtasks = () => {
