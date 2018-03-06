@@ -50,11 +50,7 @@ const skeletorCli = () => {
 	}
 
 	const filterTasks = () => {
-		if (args._.length > 0) {
-			return config.tasks.filter(task => task.name === args._[0]);
-		} else {
-			return args._;
-		}
+		return args._.length > 0 ? config.tasks.filter(task => task.name === args._[0]) : config.tasks;
 	}
 
 	const getSubtasks = () => {
