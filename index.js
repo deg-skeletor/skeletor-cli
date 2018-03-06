@@ -9,6 +9,7 @@ const errors = {
 	noConfig: 'No configuration specified',
 	tooManyTasks: 'One task at a time, please.',
 	tooManySubtasks: 'You set "only" and "except" flags. Make up your damn mind.'
+	taskNotFound: 'The task you entered does not exist in the config file.'
 };
 // const skelWizard = require('skeletor-wizard');
 
@@ -29,7 +30,11 @@ const skeletorCli = () => {
 		}
 		console.log(args);
 		const filteredTasks = filterTasks();
-		console.log(filteredTasks);
+		if (filteredTasks) {
+			console.log(filteredTasks);
+		} else {
+			logToConsole(errors.taskNotFound);
+		}
 	}
 
 	const isVersionCheck = () => {
@@ -50,7 +55,12 @@ const skeletorCli = () => {
 	}
 
 	const filterTasks = () => {
-		return args._.length > 0 ? config.tasks.filter(task => task.name === args._[0]) : config.tasks;
+		if (args._.length > 0) {
+			const filtered = config.tasks.filter(task => task.name === args._[0]);
+			return filtered.length > 0 ? filtered : null;
+		} else {
+			return config.tasks;
+		}
 	}
 
 	const getSubtasks = () => {
