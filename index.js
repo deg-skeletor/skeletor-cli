@@ -18,7 +18,9 @@ const skeletorCli = () => {
 	let subtaskArgs; 
 
 	const init = () => {
+
 		subtaskArgs = getSubtaskArgs();
+
 		if (isVersionCheck()) {
 			return logToConsole(pkg.version, '');
 		}
@@ -58,6 +60,7 @@ const skeletorCli = () => {
 
 	const runTasks = (filteredTasks) => {
 		console.log(subtaskArgs);
+		console.log(filteredTasks);
 		filteredTasks.forEach(task => {
 			skelCore.runTask(task, {
 				subTasksToInclude: ''
