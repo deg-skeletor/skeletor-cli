@@ -61,7 +61,7 @@ const skeletorCli = () => {
 		console.log(subtaskArgs);
 		console.log(filteredTasks);
 		filteredTasks.forEach(task => {
-			skelCore.runTask(task, {
+			skelCore.runTask(task.name, {
 				subTasksToInclude: ''
 			});
 		});
