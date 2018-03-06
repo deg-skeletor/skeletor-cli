@@ -15,9 +15,10 @@ const errors = {
 
 const skeletorCli = () => {
 
-	const subtaskArgs = getSubtaskArgs();
+	let subtaskArgs; 
 
 	const init = () => {
+		subtaskArgs = getSubtaskArgs();
 		if (isVersionCheck()) {
 			return logToConsole(pkg.version, '');
 		}
