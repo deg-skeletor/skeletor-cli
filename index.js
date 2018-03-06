@@ -36,7 +36,6 @@ const skeletorCli = () => {
 		const filteredTasks = filterTasks();
 		if (filteredTasks) {
 			runTasks(filteredTasks);
-			console.log(filteredTasks);
 		} else {
 			logToConsole(errors.taskNotFound);
 		}
