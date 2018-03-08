@@ -1,43 +1,51 @@
 #!/usr/bin/env node
 
 const pkg = require('./package.json');
+const inquirer = require('inquirer');
 const args = require('minimist')(process.argv.slice(2));
+const errors = require('./lib/errors').errors;
 const skelCore = require('skeletor-core')();
 const config = skelCore.getConfig();
-const errors = {
-	prefix: 'ERROR: ',
-	noConfig: 'No configuration specified',
-	tooManyTasks: 'One task at a time, please.',
-	tooManySubtasks: 'You set "only" and "except" flags. Make up your damn mind.',
-	taskNotFound: 'The task you entered does not exist in the config file.'
-};
 // const skelWizard = require('skeletor-wizard');
 
 const skeletorCli = () => {
 
-	let subtaskArgs; 
+	let subTaskArgs; 
 
 	const init = () => {
-
-		subtaskArgs = getSubtaskArgs();
-
 		if (isVersionCheck()) {
-			return logToConsole(pkg.version, '');
+			return logToConsole(`skel-cli: ${pkg.version}`, '');
 		}
-		if (hasInvalidConfig()) {
-			return logError(errors.noConfig);
-		}
-		if (hasTooManyTaskArgs()) {
-			return logToConsole(errors.tooManyTasks);
-		}
-		if (hasTooManySubtaskArgs()) {
-			return logToConsole(errors.tooManySubtasks);
-		}
-		const filteredTasks = filterTasks();
-		if (filteredTasks) {
-			runTasks(filteredTasks);
+		if (!config) {
+			inquirer.prompt([{
+  				name: 'createConfigFile',
+  				message: errors.noConfig,
+  				type: 'confirm'
+  			}])
+  				.then(answers => {
+	  				if (answers.createConfigFile === true) {
+	  					console.log('scaffolding go!');
+	  				} else {
+	  					logToConsole(errors.cliCanceled, '');
+	  				}
+	  			});
 		} else {
-			logToConsole(errors.taskNotFound);
+			if (hasInvalidConfig()) {
+				return logToConsole(errors.invalidConfig);
+			}
+			if (hasTooManyTaskArgs()) {
+				return logToConsole(errors.tooManyTasks);
+			}
+			subTaskArgs = getSubTaskArgs();
+			if (hasTooManySubTaskArgs()) {
+				return logToConsole(errors.tooManySubTasks);
+			}
+			const filteredTasks = filterTasks();
+			if (filteredTasks) {
+				runTasks(filteredTasks);
+			} else {
+				logToConsole(errors.taskNotFound.replace('[taskName]', args._[0]));
+			}
 		}
 	}
 
@@ -46,41 +54,58 @@ const skeletorCli = () => {
 	}
 
 	const hasInvalidConfig = () => {
-		return !config || !config.tasks || config.tasks.length === 0;
+		return !config.tasks || config.tasks.length === 0;
 	}
 
 	const hasTooManyTaskArgs = () => {
 		return args._.length > 1;
 	}
 
-	const hasTooManySubtaskArgs = () => {
-		return subtaskArgs.only.length > 0 && subtaskArgs.except.length > 0
+	const hasTooManySubTaskArgs = () => {
+		return subTaskArgs.only.length > 0 && subTaskArgs.except.length > 0
 	}
 
 	const runTasks = (filteredTasks) => {
-		console.log(subtaskArgs);
-		console.log(filteredTasks);
 		filteredTasks.forEach(task => {
-			console.log(task);
+			const filteredSubTasks = filterSubTasks(task);
 			skelCore.runTask(task.name, {
-				subTasksToInclude: ''
+				subTasksToInclude: filteredSubTasks
 			});
 		});
 	}
 
 	const filterTasks = () => {
 		if (args._.length > 0) {
-			const filtered = config.tasks.filter(task => task.name === args._[0]);
-			return filtered.length > 0 ? filtered : null;
+			const filteredTasks = config.tasks.filter(task => task.name === args._[0]);
+			return filteredTasks.length > 0 ? filteredTasks : null;
 		} else {
 			return config.tasks;
 		}
 	}
 
-	const getSubtaskArgs = () => {
+	const filterSubTasks = (task) => {
+		if (subTaskArgs.only.length > 0) {
+			return filterSubTaskArgsByMethod(task, 'only');
+		} else if (subTaskArgs.except.length > 0) {
+			return filterSubTaskArgsByMethod(task, 'except');
+		} else {
+			return task.subTasks.map(subTask => subTask.name);
+		}
+	}
+
+	const filterSubTaskArgsByMethod = (task, method) => {
+		return task.subTasks.reduce((accumulator, subTask) => {
+			if (subTaskArgs[method].includes(subTask.name)) {
+				accumulator.push(subTask.name);
+			}
+			return accumulator;
+		}, []);
+	}
+
+	const getSubTaskArgs = () => {
 		return {
 			only: args.only && args.only.length > 0 ? args.only.split(',') : [],
-			except: args.except && args.only.length > 0 ? args.except.split(',') : []
+			except: args.except && args.except.length > 0 ? args.except.split(',') : []
 		};
 	}
 
