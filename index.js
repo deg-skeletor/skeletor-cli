@@ -67,9 +67,8 @@ const skeletorCli = () => {
 
 	const runTasks = (filteredTasks) => {
 		filteredTasks.forEach(task => {
-			const filteredSubTasks = filterSubTasks(task);
 			skelCore.runTask(task.name, {
-				subTasksToInclude: filteredSubTasks
+				subTasksToInclude: filterSubTasks(task)
 			});
 		});
 	}
