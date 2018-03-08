@@ -85,15 +85,15 @@ const skeletorCli = () => {
 
 	const filterSubTasks = (task) => {
 		if (subTaskArgs.only.length > 0) {
-			return filterSubTaskArgsByMethod(task, 'only');
+			return filterSubTasksByMethod(task, 'only');
 		} else if (subTaskArgs.except.length > 0) {
-			return filterSubTaskArgsByMethod(task, 'except');
+			return filterSubTasksByMethod(task, 'except');
 		} else {
 			return task.subTasks.map(subTask => subTask.name);
 		}
 	}
 
-	const filterSubTaskArgsByMethod = (task, method) => {
+	const filterSubTasksByMethod = (task, method) => {
 		return task.subTasks.reduce((accumulator, subTask) => {
 			if (subTaskArgs[method].includes(subTask.name)) {
 				accumulator.push(subTask.name);
