@@ -3,6 +3,7 @@
 const pkg = require('./package.json');
 const inquirer = require('inquirer');
 const args = require('minimist')(process.argv.slice(2));
+const taskArgs = args._;
 const errors = require('./lib/errors').errors;
 const skelCore = require('skeletor-core')();
 const config = skelCore.getConfig();
@@ -44,13 +45,13 @@ const skeletorCli = () => {
 			if (filteredTasks) {
 				runTasks(filteredTasks);
 			} else {
-				logToConsole(errors.taskNotFound.replace('[taskName]', args._[0]));
+				logToConsole(errors.taskNotFound.replace('[taskName]', taskArgs[0]));
 			}
 		}
 	}
 
 	const isVersionCheck = () => {
-		return args._.includes('version') || args.v;
+		return taskArgs.includes('version') || args.v;
 	}
 
 	const hasInvalidConfig = () => {
@@ -58,7 +59,7 @@ const skeletorCli = () => {
 	}
 
 	const hasTooManyTaskArgs = () => {
-		return args._.length > 1;
+		return taskArgs.length > 1;
 	}
 
 	const hasTooManySubTaskArgs = () => {
@@ -74,8 +75,8 @@ const skeletorCli = () => {
 	}
 
 	const filterTasks = () => {
-		if (args._.length > 0) {
-			const filteredTasks = config.tasks.filter(task => task.name === args._[0]);
+		if (taskArgs.length > 0) {
+			const filteredTasks = config.tasks.filter(task => task.name === taskArgs[0]);
 			return filteredTasks.length > 0 ? filteredTasks : null;
 		} else {
 			return config.tasks;
