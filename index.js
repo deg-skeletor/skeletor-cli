@@ -95,8 +95,15 @@ const skeletorCli = () => {
 
 	const filterSubTasksByMethod = (task, method) => {
 		return task.subTasks.reduce((accumulator, subTask) => {
-			if (subTaskArgs[method].includes(subTask.name)) {
-				accumulator.push(subTask.name);
+			if (method === 'only') {
+				if (subTaskArgs[method].includes(subTask.name)) {
+					accumulator.push(subTask.name);
+				}
+			}
+			if (method === 'except') {
+				if (!subTaskArgs[method].includes(subTask.name)) {
+					accumulator.push(subTask.name);
+				}
 			}
 			return accumulator;
 		}, []);
