@@ -24,7 +24,7 @@ const skeletorCli = () => {
   			}])
   				.then(answers => {
 	  				if (answers.createConfigFile === true) {
-	  					console.log('scaffolding go!');
+	  					logToConsole('scaffolding go!', '');
 	  				} else {
 	  					logToConsole(errors.cliCanceled, '');
 	  				}
@@ -110,7 +110,7 @@ const skeletorCli = () => {
 	}
 
 	const logToConsole = (msg, prefix = errors.prefix, method = 'log') => {
-		console[method](`${prefix}${msg}`)
+		console[method](`${prefix}${msg}`);
 	}
 
 	init();
