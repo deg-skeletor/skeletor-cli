@@ -27,5 +27,8 @@
     "devDependencies": {
         "eslint": "^4.19.1",
         "jest": "^23.1.0"
+    },
+    "publishConfig": {
+        "access": "public"
     }
 }
