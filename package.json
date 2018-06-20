@@ -1,6 +1,6 @@
 {
     "name": "@deg-skeletor/cli",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "The command line interface for Skeletor",
     "repository": "https://github.com/deg-skeletor/skeletor-cli.git",
     "main": "index.js",
