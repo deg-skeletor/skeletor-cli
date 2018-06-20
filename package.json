@@ -1,6 +1,6 @@
 {
-    "name": "@skeletor/cli",
-    "version": "0.0.1",
+    "name": "@deg-skeletor/cli",
+    "version": "0.1.0",
     "description": "The command line interface for Skeletor",
     "repository": "https://github.com/deg-skeletor/skeletor-cli.git",
     "main": "index.js",
@@ -17,7 +17,7 @@
         "skel": "index.js"
     },
     "author": "Aaron Ladage",
-    "license": "MIT",
+    "license": "ISC",
     "dependencies": {
         "minimist": "^1.2.0",
         "inquirer": "^5.1.0",
