@@ -5,7 +5,7 @@ const inquirer = require('inquirer');
 const args = require('minimist')(process.argv.slice(2));
 const taskArgs = args._;
 const errors = require('./lib/errors').errors;
-const skelCore = require('skeletor-core')();
+const skelCore = require('@deg-skeletor/core')();
 const config = skelCore.getConfig();
 // const skelWizard = require('skeletor-wizard');
 

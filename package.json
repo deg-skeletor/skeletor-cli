@@ -1,6 +1,6 @@
 {
     "name": "@deg-skeletor/cli",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "description": "The command line interface for Skeletor",
     "repository": "https://github.com/deg-skeletor/skeletor-cli.git",
     "main": "index.js",
@@ -21,8 +21,7 @@
     "dependencies": {
         "minimist": "^1.2.0",
         "inquirer": "^5.1.0",
-        "skeletor-core": "git+https://github.com/deg-skeletor/skeletor-core.git",
-        "skeletor-wizard": "deg-skeletor/skeletor-wizard"
+        "@deg-skeletor/core": "^0.1.0"
     },
     "devDependencies": {
         "eslint": "^4.19.1",
