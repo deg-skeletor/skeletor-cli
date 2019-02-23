@@ -21,6 +21,7 @@
     "dependencies": {
         "minimist": "^1.2.0",
         "inquirer": "^5.1.0",
+        "fs-extra": "^7.0.1",
         "@deg-skeletor/core": "^1.1.0",
         "@deg-skeletor/orko": "^1.0.0"
     },
