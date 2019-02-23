@@ -7,7 +7,7 @@ const taskArgs = args._;
 const errors = require('./lib/errors').errors;
 const skelCore = require('@deg-skeletor/core')();
 const config = skelCore.getConfig();
-// const skelWizard = require('skeletor-wizard');
+const orko = require('@deg-skeletor/orko');
 
 const skeletorCli = () => {
 
@@ -25,7 +25,7 @@ const skeletorCli = () => {
   			}])
   				.then(answers => {
 	  				if (answers.createConfigFile === true) {
-	  					logToConsole('scaffolding go!', '');
+						orko.start();
 	  				} else {
 	  					logToConsole(errors.cliCanceled, '');
 	  				}
