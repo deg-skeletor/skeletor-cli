@@ -6,7 +6,7 @@ const fs = require('fs-extra');
 const args = require('minimist')(process.argv.slice(2));
 const taskArgs = args._;
 const errors = require('./lib/errors').errors;
-const orko = require('@deg-skeletor/orko');
+const orko = require('@deg-skeletor/orko')();
 
 const skeletorCli = () => {
 
