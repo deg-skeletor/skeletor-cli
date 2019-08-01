@@ -49,7 +49,6 @@ const skeletorCli = () => {
 				return logToConsole(errors.tooManySubTasks);
 			}
 			const filteredTask = filterTasks();
-			console.log(filteredTask);
 			if (filteredTask) {
 				runTask(filteredTask);
 			} else {
