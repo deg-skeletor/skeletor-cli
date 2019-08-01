@@ -20,13 +20,13 @@
     "license": "ISC",
     "dependencies": {
         "minimist": "^1.2.0",
-        "inquirer": "^5.1.0",
-        "fs-extra": "^7.0.1",
-        "@deg-skeletor/core": "^1.1.0",
-        "@deg-skeletor/orko": "^1.0.0"
+        "inquirer": "^6.5.0",
+        "fs-extra": "^8.1.0",
+        "@deg-skeletor/core": "^1.1.1",
+        "@deg-skeletor/orko": "^1.2.4"
     },
     "devDependencies": {
-        "eslint": "^4.19.1",
+        "eslint": "^6.1.0",
         "jest": "^24.8.0"
     },
     "publishConfig": {
