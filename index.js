@@ -48,9 +48,10 @@ const skeletorCli = () => {
 			if (hasTooManySubTaskArgs()) {
 				return logToConsole(errors.tooManySubTasks);
 			}
-			const filteredTasks = filterTasks();
-			if (filteredTasks) {
-				runTasks(filteredTasks);
+			const filteredTask = filterTasks();
+			console.log(filteredTask);
+			if (filteredTask) {
+				runTask(filteredTask);
 			} else {
 				logToConsole(errors.taskNotFound.replace('[taskName]', taskArgs[0]));
 			}
@@ -73,20 +74,22 @@ const skeletorCli = () => {
 		return subTaskArgs.only.length > 0 && subTaskArgs.except.length > 0
 	};
 
-	const runTasks = (filteredTasks) => {
-		filteredTasks.forEach(task => {
-			skelCore.runTask(task.name, {
-				subTasksToInclude: filterSubTasks(task)
-			});
+	const runTask = task => {
+		skelCore.runTask(task.name, {
+			subTasksToInclude: filterSubTasks(task)
 		});
 	};
 
 	const filterTasks = () => {
+		let filteredTasks;
 		if (taskArgs.length > 0) {
-			const filteredTasks = config.tasks.filter(task => task.name === taskArgs[0]);
-			return filteredTasks.length > 0 ? filteredTasks : null;
+			const tasksMatchingArgs = config.tasks.find(task => task.name === taskArgs[0]);
+			filteredTasks = tasksMatchingArgs || null;
+		} else {
+			const defaultTask = config.tasks.find(task => task.isDefaultTask === true);
+			filteredTasks = defaultTask || config.tasks[0];
 		}
-		return config.tasks;
+		return filteredTasks;
 	};
 
 	const filterSubTasks = (task) => {
