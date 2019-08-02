@@ -80,15 +80,15 @@ const skeletorCli = () => {
 	};
 
 	const filterTasks = () => {
-		let filteredTasks;
+		let filteredTask;
 		if (taskArgs.length > 0) {
-			const tasksMatchingArgs = config.tasks.find(task => task.name === taskArgs[0]);
-			filteredTasks = tasksMatchingArgs || null;
+			const taskMatchingArgs = config.tasks.find(task => task.name === taskArgs[0]);
+			filteredTask = taskMatchingArgs || null;
 		} else {
 			const defaultTask = config.tasks.find(task => task.isDefaultTask === true);
-			filteredTasks = defaultTask || config.tasks[0];
+			filteredTask = defaultTask || config.tasks[0];
 		}
-		return filteredTasks;
+		return filteredTask;
 	};
 
 	const filterSubTasks = (task) => {
