@@ -1,6 +1,6 @@
 {
     "name": "@deg-skeletor/cli",
-    "version": "1.1.6",
+    "version": "1.1.7",
     "description": "The command line interface for Skeletor",
     "repository": "https://github.com/deg-skeletor/skeletor-cli.git",
     "main": "index.js",
@@ -18,16 +18,20 @@
     },
     "author": "Aaron Ladage",
     "license": "ISC",
+    "files": [
+        "index.js",
+        "lib"
+    ],
     "dependencies": {
-        "minimist": "^1.2.0",
-        "inquirer": "^6.5.0",
-        "fs-extra": "^8.1.0",
         "@deg-skeletor/core": "^1.1.1",
-        "@deg-skeletor/orko": "^1.2.4"
+        "@deg-skeletor/orko": "^1.2.4",
+        "fs-extra": "^8.1.0",
+        "inquirer": "^6.5.0",
+        "minimist": "^1.2.5"
     },
     "devDependencies": {
-        "eslint": "^6.1.0",
-        "jest": "^24.8.0"
+        "eslint": "7.18.0",
+        "jest": "26.6.3"
     },
     "publishConfig": {
         "access": "public"
